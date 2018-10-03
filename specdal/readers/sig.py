@@ -40,9 +40,12 @@ def read_sig(filepath, read_data=True, read_metadata=True, verbose=False):
         data = pd.read_table(filepath, skiprows=i+1,
                              sep="\s+", index_col=0,
                              header=None, names=colnames
-        )
+        ).astype(str)
+        for d in data.keys():
+            data[d] = data[d].str.replace(',', '.').astype(float)
         if "pct_reflect" in data:
             data["pct_reflect"] = data["pct_reflect"]/100
+
     if read_metadata:
         metadata = OrderedDict()
         metadata['file'] = f.name
@@ -50,8 +53,9 @@ def read_sig(filepath, read_data=True, read_metadata=True, verbose=False):
         ################################################################################
         # Average the integration times
         # TODO: check if this is valid
-        metadata['integration_time'] =  np.mean( 
-            list(map(float, raw_metadata['integration'].split(', '))))
+        l = raw_metadata['integration'].split(', ')
+        l = list(v.replace(',','.') for v in l)
+        metadata['integration_time'] =  np.mean(list(map(float, l)))
         ################################################################################
         metadata['measurement_type'] = raw_metadata['units'].split(', ')[0]
         try:
