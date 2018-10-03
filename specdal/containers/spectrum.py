@@ -34,7 +34,7 @@ class Spectrum(object):
     
     """
     def __init__(self, name=None, filepath=None, measurement=None,
-                 measure_type='pct_reflect', metadata=None,
+                 measure_type='', metadata=None,
                  interpolated=False, stitched=False, jump_corrected=False,
                  verbose=False):
         if name is None:
@@ -76,9 +76,14 @@ class Spectrum(object):
         self.metadata = meta
         if measure_type == 'pct_reflect' and 'pct_reflect' not in data:
             self.measurement = self.get_pct_reflect(data)
-            return
-        assert measure_type in data # TODO: handle this
-        self.measurement = data[measure_type]
+        else:
+            try:
+                assert measure_type in data
+                self.measurement = data[measure_type]
+            except AssertionError:
+                print '\nThe measure type "{}" is not available in the raw data measures. The raw data will be used\n'.format(measure_type)
+                self.measurement = data
+                self.measure_type = ', '.join(data.keys())
     ##################################################
     # wrappers around spectral operations
     def interpolate(self, spacing=1, method='slinear'):
