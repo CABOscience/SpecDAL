@@ -38,13 +38,14 @@ def read_sig(filepath, read_data=True, read_metadata=True, verbose=False):
             colnames = ["wavelength", "ref_radiance",
                         "tgt_radiance", "pct_reflect"]
         data = pd.read_table(filepath, skiprows=i+1,
-                             sep="\s+", index_col=0,
+                             sep="\s+",
                              header=None, names=colnames
         ).astype(str)
         for d in data.keys():
             data[d] = data[d].str.replace(',', '.').astype(float)
-        if "pct_reflect" in data:
-            data["pct_reflect"] = data["pct_reflect"]/100
+        #if "pct_reflect" in data:
+        #    data["pct_reflect"] = data["pct_reflect"]/100
+        data = data.set_index('wavelength')
 
     if read_metadata:
         metadata = OrderedDict()
