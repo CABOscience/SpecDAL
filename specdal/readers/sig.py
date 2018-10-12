@@ -10,7 +10,7 @@ import json
 
 def read_sig(filepath, read_data=True, read_metadata=True, verbose=False):
     """
-    Read asd file for data and metadata
+    Read sig file for data and metadata
     
     Return
     ------
