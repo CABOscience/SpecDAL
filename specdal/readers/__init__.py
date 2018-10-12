@@ -6,6 +6,7 @@ from .asd import read_asd
 from .sed import read_sed
 from .sig import read_sig
 from .pico import read_pico
+from .calibration import read_calibration
 
 modules = glob.glob(dirname(__file__)+"/*.py")
 __all__ = [ basename(f)[:-3] for f in modules if isfile(f) and not f.endswith('__init__.py')]
@@ -17,6 +18,7 @@ SUPPORTED_READERS = {
         '.pico':read_pico,
         '.light':read_pico,
         '.dark':read_pico,
+        '.calib':read_calibration
 }
 
 def read(filepath, read_data=True, read_metadata=True, verbose=False):
@@ -25,6 +27,7 @@ def read(filepath, read_data=True, read_metadata=True, verbose=False):
         .sig: read_sig
         .sed: read_sed
         .pico: read_pico
+        .calib: read_calibration
     """
     ext = splitext(filepath)[1]
     assert ext in SUPPORTED_READERS
