@@ -9,7 +9,7 @@ import matplotlib
 matplotlib.use('TkAgg')
 from specdal.spectrum import Spectrum
 from specdal.collection import Collection
-from viewer import Viewer
+from .viewer import Viewer
 from collections import OrderedDict
 
 # ~/data/specdal/aidan_data2/PSR/
@@ -49,7 +49,7 @@ class SpecdalGui(tk.Tk):
         if collection is None:
             collection = self.collectionList.currentCollection
         groups = collection.groupby(separator=separator, indices=indices, filler=None)
-        for gname, gcoll in groups.items():
+        for gname, gcoll in list(groups.items()):
             gcoll.name = collection.name + " (" + gcoll.name + ")"
             self.collectionList.add_collection(gcoll)
     

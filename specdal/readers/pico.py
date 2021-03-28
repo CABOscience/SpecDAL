@@ -93,7 +93,7 @@ def read_pico(filepath, read_data=True, read_metadata=True, verbose=False):
         #Pico always in raw counts
         wavelength_coeffs = downwelling_light["Metadata"][
                 "WavelengthCalibrationCoefficients"]
-        wavelength_idxs = range(len(downwelling_light["Pixels"]))
+        wavelength_idxs = list(range(len(downwelling_light["Pixels"])))
         wavelengths = np.poly1d(wavelength_coeffs[::-1])(wavelength_idxs)
         #TODO: How to get ref data for pico?
         columns = ("wavelength","tgt_count","ref_count","tgt_count_dark",

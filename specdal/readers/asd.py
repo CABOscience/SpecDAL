@@ -39,7 +39,7 @@ def read_asd(filepath, read_data=True, read_metadata=True, verbose=False):
     raw_metadata = {}
     with open(abspath(expanduser(filepath)), 'rb') as f:
         if verbose:
-            print('reading {}'.format(filepath))
+            print(('reading {}'.format(filepath)))
         binconts = f.read()
         version = binconts[0:3].decode('utf-8')
         assert(version in ASD_VERSIONS) # TODO: define ASD_VERSIONS

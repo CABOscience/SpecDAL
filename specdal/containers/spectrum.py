@@ -81,9 +81,9 @@ class Spectrum(object):
                 assert measure_type in data
                 self.measurement = data[measure_type]
             except AssertionError:
-                print '\nThe measure type "{}" is not available in the raw data measures. The raw data will be used\n'.format(measure_type)
+                print('\nThe measure type "{}" is not available in the raw data measures. The raw data will be used\n'.format(measure_type))
                 self.measurement = data
-                self.measure_type = ', '.join(data.keys())
+                self.measure_type = ', '.join(list(data.keys()))
     ##################################################
     # wrappers around spectral operations
     def interpolate(self, spacing=1, method='slinear'):

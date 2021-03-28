@@ -38,7 +38,7 @@ def read_calibration(filepath, read_data=True, read_metadata=True, verbose=False
                              sep="\s+",
                              header=None, names=colnames
         ).astype(str)
-        for d in data.keys():
+        for d in list(data.keys()):
             data[d] = data[d].str.replace(',', '.').astype(float)
         data = data.set_index('wavelength')
 
